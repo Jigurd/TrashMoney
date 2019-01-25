@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Trash Money</string>
+    <string name="lbl_transactions">Transaction History</string>
+    <string name="lbl_transfer">Transfer Currency</string>
+    <string name="lbl_euro">Balance [EUR]:</string>
+    <string name="lbl_currency">00.00</string>
+    <string name="lbl_amount_check">" Error: Insufficient Funds"</string>
+    <string name="lbl_pay">Pay</string>
+    <string name="lbl_recipient">Recipient:</string>
+    <string name="lbl_euro_amount">Amount [EUR]</string>
+    <string name="lbl_empty"></string>
+</resources>
