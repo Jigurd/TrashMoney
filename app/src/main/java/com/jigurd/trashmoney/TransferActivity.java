@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class TransferActivity extends AppCompatActivity
 {
@@ -26,10 +25,18 @@ public class TransferActivity extends AppCompatActivity
 
             final Intent i = getIntent();
             balance = i.getIntExtra("BALANCE", 0); //get balance from main activity
-            //DEBUG(String.valueOf(balance));
 
             //string with friends for the dropdown
-            String[] friends =  new String[]{"Alice", "Bob", "Bill", "Stephen", "Kurt", "Raymond", "Quentin"};
+            String[] friends;
+            try
+            {
+            friends = i.getStringArrayExtra("NAMES");
+            }catch(NullPointerException e)
+            {
+                friends = new String[]{"none"};
+                setResult(1);
+                finish();
+            }
             final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, friends);
 
             //define dropdown using friends
@@ -51,13 +58,17 @@ public class TransferActivity extends AppCompatActivity
 
                     if (balance > transferAmount)
                     { //if user can afford it
-                        balance -= transferAmount;
-                        toast("Funds transferred");
-                        if (balance < transferAmount)
-                        { //check if you can make the same transaction again
-                            mPayBtn.setEnabled(false); //button disables automatically if you have
-                            // too little money for a repeated payment, makes app a bit more responsive
-                        }
+                        balance -= transferAmount;  //remove amount from balance
+
+                        //create new transaction object
+                        Transaction newTransaction = new Transaction(dropdown.getSelectedItem().toString(),transferAmount,balance);
+
+                        //return to MainActivity with our new data
+                        Intent i = new Intent();
+                        i.putExtra("NEW", newTransaction);
+                        i.putExtra("BALANCE", balance);
+                        setResult(TransferActivity.RESULT_OK, i);
+                        finish();
                     }
                 }
             });
@@ -74,7 +85,13 @@ public class TransferActivity extends AppCompatActivity
                 {
                     try
                     {
-                        transferAmount = Integer.parseInt(mFieldAmount.getText().toString()) * 100; //multiplied by 100 to compensate for the way we represent currency
+                        //float is briefly needed here to allow for decimal currency transfers.
+                        //this might introduce floating point errors where occasionally
+                        // //a euro is dropped. I am not sure how to fix this.
+                        Float temp = Float.parseFloat(mFieldAmount.getText().toString());
+                        temp = temp*100; //multiplied by 100 to compensate for the way we represent currency
+                        transferAmount= temp.intValue();
+
                     } catch(NumberFormatException e)
                     {
                         transferAmount = 0;
@@ -94,20 +111,5 @@ public class TransferActivity extends AppCompatActivity
                 @Override
                 public void afterTextChanged(Editable s) {}
             });
-    }
-    @Override
-    public void onBackPressed()
-    {
-        Intent i = new Intent();
-        i.putExtra("BALANCE", balance);
-        setResult(TransferActivity.RESULT_OK, i);
-        finish();
-    }
-
-    //sends a toast with parameter message. Laziness function to save me a line of code.
-    private void toast(String msg)
-    {
-        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
-        toast.show();
     }
 }
