@@ -8,9 +8,9 @@
         android:id="@+id/txtTime"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="19"
+        android:layout_weight="20"
         android:textAlignment="textStart"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/txtName"
@@ -24,7 +24,7 @@
         android:id="@+id/txtAmount"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="27.5"
+        android:layout_weight="27"
         android:textAlignment="center"
         android:textSize="18sp" />
 
@@ -32,7 +32,7 @@
         android:id="@+id/txtBalanceAfter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="27.5"
+        android:layout_weight="27"
         android:textAlignment="center"
         android:textSize="18sp" />
     </LinearLayout>

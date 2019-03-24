@@ -87,7 +87,7 @@ public class TransferActivity extends AppCompatActivity
                     {
                         //float is briefly needed here to allow for decimal currency transfers.
                         //this might introduce floating point errors where occasionally
-                        // //a euro is dropped. I am not sure how to fix this.
+                        //a euro is dropped. I am not sure how to fix this.
                         Float temp = Float.parseFloat(mFieldAmount.getText().toString());
                         temp = temp*100; //multiplied by 100 to compensate for the way we represent currency
                         transferAmount= temp.intValue();
@@ -103,7 +103,10 @@ public class TransferActivity extends AppCompatActivity
                     {
                         mPayBtn.setEnabled(true);
                         mAmountCheck.setText(R.string.lbl_empty);
-                    } else {
+                    } else if (transferAmount == 0) {
+                        mPayBtn.setEnabled(false);
+                        mAmountCheck.setText(R.string.lbl_validity_check);
+                    }else {
                         mPayBtn.setEnabled(false);
                         mAmountCheck.setText(R.string.lbl_amount_check);
                     }

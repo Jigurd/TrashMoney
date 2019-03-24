@@ -1,6 +1,7 @@
 package com.jigurd.trashmoney;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +14,23 @@ public class ListAdapter extends ArrayAdapter<Transaction>
 {
 
     private LayoutInflater mInflater;
-    private ArrayList<Transaction> users;
+    private ArrayList<Transaction> transactions;
     private int mViewResourceId;
 
-    ListAdapter(Context context, int textViewResourceId, ArrayList<Transaction> users)
+    ListAdapter(Context context, int textViewID, ArrayList<Transaction> transactions)
     {
-        super(context, textViewResourceId, users);
-        this.users = users;
+        super(context, textViewID, transactions);
+        this.transactions = transactions;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mViewResourceId = textViewResourceId;
+        mViewResourceId = textViewID;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent)
+    @NonNull
+    public View getView(int position, View convertView,@NonNull ViewGroup parent)
     {
         convertView = mInflater.inflate(mViewResourceId, null);
 
-        Transaction transaction = users.get(position);
+        Transaction transaction = transactions.get(position);
 
         if (transaction != null)
         {
@@ -53,7 +55,6 @@ public class ListAdapter extends ArrayAdapter<Transaction>
                 Time.setText(transaction.getTransferTime());
             }
         }
-
         return convertView;
     }
 }

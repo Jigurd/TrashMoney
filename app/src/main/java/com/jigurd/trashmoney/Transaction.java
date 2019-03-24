@@ -42,7 +42,7 @@ class Transaction implements Serializable
     //returns TransferTime
     String getTransferTime()
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:SS");
         return this.mTransferTime.format(formatter);
     }
 }

@@ -5,6 +5,7 @@
     <string name="lbl_euro">Balance [EUR]:</string>
     <string name="lbl_currency">00.00</string>
     <string name="lbl_amount_check">" Error: Insufficient Funds"</string>
+    <string name="lbl_validity_check">" Error:Invalid Amount"</string>
     <string name="lbl_pay">Pay</string>
     <string name="lbl_recipient">Recipient:</string>
     <string name="lbl_euro_amount">Amount [EUR]</string>

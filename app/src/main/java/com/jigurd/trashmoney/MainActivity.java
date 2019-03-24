@@ -2,7 +2,6 @@ package com.jigurd.trashmoney;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.Random;
 
@@ -22,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     final static int TRANSFER_REQUEST_ID = 1;
     final String[]  nameList = new String[]{"Alice", "Bill", "Bob", "Kurt", "Quentin", "Raymond", "Stephen"};
 
-    private ArrayList<Transaction>  transactionList= new ArrayList<>();
+    private ArrayList<Transaction>  transactionList = new ArrayList<>();
     private int balance = 0;
     private TextView balanceView;
 
@@ -50,17 +49,6 @@ public class MainActivity extends AppCompatActivity {
         balanceView = findViewById(R.id.lbl_balance);
         updateBalanceView();
 
-        ////DEBUG
-        //final Button mDebugButton = findViewById(R.id.btn_debug);
-        //mDebugButton.setOnClickListener(new View.OnClickListener() {
-        //    @Override
-        //    public void onClick(View v) {
-        //        DEBUG(String.valueOf(balance));
-        //        updateBalanceView();
-        //    }
-        //});
-
-
         //add functionality to transfer button
         mTransferButton.setOnClickListener(new View.OnClickListener()
         {@Override
@@ -82,9 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
             //reverse list so it shows in reverse chronological order
             ArrayList<Transaction> reverseList = transactionList;
-            Collections.reverse(reverseList);
-
             i.putExtra("LIST", reverseList);
+
             startActivity(i);
         }
         });
@@ -106,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (resultCode == 1)
                 {
+                    //this should never happen, unless someone has messed with the source code :|
                     Toast.makeText(getApplicationContext(),"FATAL ERROR: Name list must be defined.", Toast.LENGTH_LONG).show();
                 }
             }
